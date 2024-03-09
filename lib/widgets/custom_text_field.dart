@@ -6,10 +6,14 @@ class CustomTextField extends StatelessWidget {
   int maxLines;
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      maxLines: maxLines,
-      decoration: InputDecoration(
-          hintText: hint, border: buildborder(), enabledBorder: buildborder()),
+    return Center(
+      child: TextField(
+        maxLines: maxLines,
+        decoration: InputDecoration(
+            hintText: hint,
+            border: buildborder(),
+            enabledBorder: buildborder()),
+      ),
     );
   }
 
