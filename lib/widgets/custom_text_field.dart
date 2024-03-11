@@ -17,7 +17,6 @@ class CustomTextField extends StatelessWidget {
           } else {
             return null;
           }
-
         },
         maxLines: maxLines,
         decoration: InputDecoration(
