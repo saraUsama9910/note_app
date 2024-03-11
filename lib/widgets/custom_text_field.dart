@@ -14,8 +14,10 @@ class CustomTextField extends StatelessWidget {
         validator: (value) {
           if (value?.isEmpty ?? true) {
             return 'Field is Empty';
+          } else {
+            return null;
           }
-          return null;
+
         },
         maxLines: maxLines,
         decoration: InputDecoration(
