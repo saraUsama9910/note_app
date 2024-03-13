@@ -14,7 +14,6 @@ void main() async {
 
 class NoteApp extends StatelessWidget {
   const NoteApp({super.key});
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
