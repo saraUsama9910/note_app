@@ -7,14 +7,17 @@ part 'add_note_state.dart';
 
 class AddNoteCubit extends Cubit<AddNoteState> {
   AddNoteCubit() : super(AddNoteInitial());
+  // ignore: non_constant_identifier_names
   AddNote(NoteModel note) async {
     emit(AddNoteLoading());
     try {
+      // ignore: non_constant_identifier_names
       var NotesBox = Hive.box<NoteModel>('Notes_Box');
-      emit(AddNoteSuccess());
+
       await NotesBox.add(note);
-    }  catch (e) {
-      AddNoteFailure(e.toString(), errMessage: 'error');
+      emit(AddNoteSuccess());
+    } catch (e) {
+      emit(AddNoteFailure(e.toString(), errMessage: 'error'));
     }
   }
 }
