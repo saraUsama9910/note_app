@@ -5,7 +5,7 @@ import 'package:note_app/cubits/add_note_cubit/add_note_cubit.dart';
 import 'package:note_app/widgets/add_note_form.dart';
 
 class AddNoteButton extends StatefulWidget {
- const AddNoteButton({super.key});
+  const AddNoteButton({super.key});
 
   @override
   State<AddNoteButton> createState() => _AddNoteButtonState();
@@ -21,13 +21,17 @@ class _AddNoteButtonState extends State<AddNoteButton> {
       child: SingleChildScrollView(
         child: BlocConsumer<AddNoteCubit, AddNoteState>(
           listener: (context, state) {
-            if (state is AddNoteLoading) {
-              isLoading = true;
+            if (state is AddNoteFailure) {
+              print('failed${state.errMessage}');
+            }
+            if (state is AddNoteSuccess) {
+              Navigator.pop(context);
             }
           },
           builder: (context, state) {
             return ModalProgressHUD(
-                inAsyncCall: isLoading, child: const AddNoteForm());
+                inAsyncCall: state is AddNoteLoading ? true : false,
+                child: const AddNoteForm());
           },
         ),
       ),
