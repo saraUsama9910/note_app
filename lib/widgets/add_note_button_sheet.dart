@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:note_app/cubits/add_note_cubit/add_note_cubit.dart';
 import 'package:note_app/widgets/add_note_form.dart';
 
-class AddNoteButton extends StatelessWidget {
-  const AddNoteButton({super.key});
+class AddNoteButton extends StatefulWidget {
+ const AddNoteButton({super.key});
+
+  @override
+  State<AddNoteButton> createState() => _AddNoteButtonState();
+}
+
+class _AddNoteButtonState extends State<AddNoteButton> {
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +21,13 @@ class AddNoteButton extends StatelessWidget {
       child: SingleChildScrollView(
         child: BlocConsumer<AddNoteCubit, AddNoteState>(
           listener: (context, state) {
-            // TODO: implement listener
+            if (state is AddNoteLoading) {
+              isLoading = true;
+            }
           },
           builder: (context, state) {
-            return const AddNoteForm();
+            return ModalProgressHUD(
+                inAsyncCall: isLoading, child: const AddNoteForm());
           },
         ),
       ),
