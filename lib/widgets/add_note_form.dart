@@ -50,6 +50,9 @@ class _AddNoteFormState extends State<AddNoteForm> {
             height: 35,
           ),
           const ColorsListView(),
+          const SizedBox(
+            height: 35,
+          ),
           AddButton(
             onTap: () {
               if (formKey.currentState!.validate()) {
