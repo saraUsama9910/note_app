@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/cubit/note_cubit.dart';
+import 'package:note_app/models/note_model.dart';
 import 'package:note_app/widgets/custom_app_bar.dart';
 import 'package:note_app/widgets/custom_text_field.dart';
 
-class EditNoteViewBody extends StatelessWidget {
-  const EditNoteViewBody({super.key});
+class EditNoteViewBody extends StatefulWidget {
+  const EditNoteViewBody({super.key, required this.note});
+  final NoteModel note;
 
+  @override
+  State<EditNoteViewBody> createState() => _EditNoteViewBodyState();
+}
+
+class _EditNoteViewBodyState extends State<EditNoteViewBody> {
+  String? title, content;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -14,7 +24,14 @@ class EditNoteViewBody extends StatelessWidget {
           const SizedBox(
             height: 40,
           ),
-          const CustomAppbar(
+          CustomAppbar(
+            onPressed: () {
+              widget.note.title = title ?? widget.note.title;
+              widget.note.subTitle = content ?? widget.note.subTitle;
+              widget.note.save();
+              BlocProvider.of<NoteCubit>(context).fetchAllNotes();
+              Navigator.pop(context);
+            },
             title: 'Edit Note',
             icon: Icons.check,
           ),
@@ -24,7 +41,10 @@ class EditNoteViewBody extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: CustomTextField(
-              hint: 'Title',
+              onChanged: (value) {
+                title = value;
+              },
+              hint: widget.note.title,
               maxLines: 1,
             ),
           ),
@@ -33,7 +53,12 @@ class EditNoteViewBody extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: CustomTextField(hint: 'Content', maxLines: 5),
+            child: CustomTextField(
+                onChanged: (value) {
+                  content = value;
+                },
+                hint: widget.note.subTitle,
+                maxLines: 5),
           ),
         ],
       ),
