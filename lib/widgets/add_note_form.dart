@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:note_app/cubits/add_note_cubit/add_note_cubit.dart';
 import 'package:note_app/models/note_model.dart';
 import 'package:note_app/widgets/add_button.dart';
+import 'package:note_app/widgets/colore_list_view.dart';
 import 'package:note_app/widgets/custom_text_field.dart';
 
 class AddNoteForm extends StatefulWidget {
@@ -48,6 +49,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
           const SizedBox(
             height: 35,
           ),
+          const ColorsListView(),
           AddButton(
             onTap: () {
               if (formKey.currentState!.validate()) {
